@@ -8,7 +8,7 @@ Parse numeric values with units such as `12px`, `50 gold`, `-1.5turn`, `100%`, o
 
 `numeric-unit-parse-kit` is a small clean-room toolkit for forms, config editors, import tools and design-token utilities that need to validate a single number plus an optional unit. It is deliberately narrower than a CSS parser, expression parser or unit converter.
 
-Links: [npm](https://www.npmjs.com/package/numeric-unit-parse-kit) · [GitHub](https://github.com/Recoveredd/numeric-unit-parse-kit)
+Links: [Demo](https://packages.wasta-wocket.fr/numeric-unit-parse-kit/) · [npm](https://www.npmjs.com/package/numeric-unit-parse-kit) · [GitHub](https://github.com/Recoveredd/numeric-unit-parse-kit)
 
 ## Package quality
 
