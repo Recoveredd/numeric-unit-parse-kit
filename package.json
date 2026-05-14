@@ -2,6 +2,18 @@
   "name": "numeric-unit-parse-kit",
   "version": "0.1.0",
   "description": "Parse generic numeric values with units into structured numbers, units, diagnostics, and normalized strings.",
+  "keywords": [
+    "numeric-unit",
+    "parse-unit",
+    "unit-parser",
+    "units",
+    "validation",
+    "diagnostics",
+    "design-tokens",
+    "typescript",
+    "browser",
+    "developer-tools"
+  ],
   "type": "module",
   "sideEffects": false,
   "license": "MPL-2.0",
@@ -40,7 +52,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
-    "@types/node": "^24.0.0",
+    "@types/node": "^20.17.30",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   }

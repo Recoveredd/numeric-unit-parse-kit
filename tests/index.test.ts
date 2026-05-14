@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatNumericUnit, isNumericUnit, parseNumericUnit } from "../src/index.js";
+import { createNumericUnitParser, formatNumericUnit, isNumericUnit, parseNumericUnit } from "../src/index.js";
 
 describe("parseNumericUnit", () => {
   it("parses a number and arbitrary unit", () => {
@@ -10,7 +10,8 @@ describe("parseNumericUnit", () => {
       value: {
         amount: 50,
         unit: "gold",
-        raw: "50 gold"
+        raw: "50 gold",
+        normalized: "50gold"
       },
       issues: []
     });
@@ -26,11 +27,15 @@ describe("parseNumericUnit", () => {
   it("parses percent and unitless zero", () => {
     expect(parseNumericUnit("100%")).toMatchObject({
       ok: true,
-      value: { amount: 100, unit: "%" }
+      value: { amount: 100, unit: "%", normalized: "100%" }
+    });
+    expect(parseNumericUnit("0px")).toMatchObject({
+      ok: true,
+      value: { amount: 0, unit: "px", normalized: "0px" }
     });
     expect(parseNumericUnit(0, { requireUnit: true })).toMatchObject({
       ok: true,
-      value: { amount: 0, unit: "" }
+      value: { amount: 0, unit: "", normalized: "0" }
     });
   });
 
@@ -52,7 +57,19 @@ describe("parseNumericUnit", () => {
     });
     expect(parseNumericUnit("12bananas", { allowedUnits: ["px", "rem"] })).toMatchObject({
       ok: false,
-      issues: [{ code: "unit-not-allowed" }]
+      issues: [{ code: "unit-not-allowed", unit: "bananas" }]
+    });
+  });
+
+  it("supports case-insensitive unit allowlists when requested", () => {
+    expect(
+      parseNumericUnit("12PX", {
+        allowedUnits: ["px", "rem"],
+        caseSensitiveUnits: false
+      })
+    ).toMatchObject({
+      ok: true,
+      value: { amount: 12, unit: "PX", normalized: "12PX" }
     });
   });
 
@@ -84,6 +101,7 @@ describe("formatNumericUnit", () => {
     expect(formatNumericUnit({ amount: 1.25, unit: "rem" })).toBe("1.25rem");
     expect(formatNumericUnit({ amount: 0, unit: "px" })).toBe("0");
     expect(formatNumericUnit({ amount: 0, unit: "px" }, { unitlessZero: false })).toBe("0px");
+    expect(formatNumericUnit({ amount: 12, unit: "gold" }, { separator: " " })).toBe("12 gold");
   });
 
   it("rounds when requested", () => {
@@ -97,5 +115,20 @@ describe("isNumericUnit", () => {
   it("returns a boolean", () => {
     expect(isNumericUnit("12 px")).toBe(true);
     expect(isNumericUnit("url(x)")).toBe(false);
+  });
+});
+
+describe("createNumericUnitParser", () => {
+  it("reuses default options and allows per-call overrides", () => {
+    const cssLength = createNumericUnitParser({
+      allowedUnits: ["px", "rem"],
+      allowPercent: false,
+      requireUnit: true
+    });
+
+    expect(cssLength.isValid("12px")).toBe(true);
+    expect(cssLength.parse("50%").issues[0]?.code).toBe("percent-not-allowed");
+    expect(cssLength.parse("12em").issues[0]?.code).toBe("unit-not-allowed");
+    expect(cssLength.isValid("50%", { allowPercent: true, allowedUnits: ["px", "%"] })).toBe(true);
   });
 });
