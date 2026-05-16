@@ -1,5 +1,6 @@
 # numeric-unit-parse-kit
 
+[![npm version](https://img.shields.io/npm/v/numeric-unit-parse-kit.svg)](https://www.npmjs.com/package/numeric-unit-parse-kit)
 [![License: MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-blue.svg)](LICENSE)
 [![CI](https://github.com/Recoveredd/numeric-unit-parse-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/Recoveredd/numeric-unit-parse-kit/actions/workflows/ci.yml)
 
@@ -7,7 +8,7 @@ Parse numeric values with units such as `12px`, `50 gold`, `-1.5turn`, `100%`, o
 
 `numeric-unit-parse-kit` is a small clean-room toolkit for forms, config editors, import tools and design-token utilities that need to validate a single number plus an optional unit. It is deliberately narrower than a CSS parser, expression parser or unit converter.
 
-Links: [Demo](https://packages.wasta-wocket.fr/numeric-unit-parse-kit/) · [GitHub](https://github.com/Recoveredd/numeric-unit-parse-kit)
+Links: [Demo](https://packages.wasta-wocket.fr/numeric-unit-parse-kit/) · [npm](https://www.npmjs.com/package/numeric-unit-parse-kit) · [GitHub](https://github.com/Recoveredd/numeric-unit-parse-kit)
 
 ## Package quality
 
@@ -18,11 +19,8 @@ Links: [Demo](https://packages.wasta-wocket.fr/numeric-unit-parse-kit/) · [GitH
 - CI runs `npm ci`, `typecheck`, `build`, and `test`.
 - Tested on Node.js 20 and 22 with GitHub Actions.
 
-## Publication status
 
-This package is currently a GitHub preview and is queued for npm publication. The browser demo is available now, and the install command below is the command to use once the npm package is published.
-
-## Install after npm publication
+## Install
 
 ```bash
 npm install numeric-unit-parse-kit
